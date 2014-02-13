@@ -5,28 +5,36 @@ import nl.hanze.web.t41.http.HTTPListener;
 import nl.hanze.web.t41.http.HTTPSettings;
 
 public class HTTPRunner {
+
+    /**
+     * Main method.
+     *
+     * @param args
+     */
 	public static void main (String args[]) {
 
-
-
-		/* 
-		  *** OPGAVE 1.1 ***
-		  zorg ervoor dat het port-nummer en de basis-directory vanuit de command-line kunnen worden meegegeven.
-		  LET OP: de default-waarden moet je nog wel instellen in de Settings-klasse.
-		*/
-		
-		int portnumber;
-
-
+        // Get port number from arguments
         try {
-            portnumber = Integer.parseInt(args[0]);
-        } catch (NumberFormatException e) {
-            portnumber = HTTPSettings.PORT_NUM;
+            int portNumber = Integer.parseInt(args[0]);
+
+            HTTPSettings.setPortNumber(portNumber);
+        } catch (Exception e) {
+            System.out.println("Default port number is used: " + HTTPSettings.getPortNumber());
         }
-		
+
+        // Get the document root from the arguments
+        try {
+            String documentRoot = args[1];
+
+            HTTPSettings.setDocumentRoot(documentRoot);
+        } catch (Exception e) {
+            System.out.println("Default document is used: " + HTTPSettings.getDocumentRoot());
+        }
+
+        // Start listening
 	    try {
-	    	HTTPListener listener = new HTTPListener (portnumber, new HTTPHandlerImpl());
-	    	listener.startUp();	    	
+	    	HTTPListener listener = new HTTPListener(new HTTPHandlerImpl());
+	    	listener.startUp();
 	    } catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -4,25 +4,56 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class HTTPListener {
-	private int portnumber;	
+
+	private int portNumber;
 	private HTTPHandler httpHandler;
-	
-	public HTTPListener(int port, HTTPHandler hh) throws Exception {
-		if (port < HTTPSettings.PORT_MIN || port > HTTPSettings.PORT_MAX) 
+
+    private boolean listen = true;
+
+    /**
+     * Constructor.
+     *
+     * @param httpHandler The HTTP handler for this listener.
+     *
+     * @throws Exception
+     */
+	public HTTPListener(HTTPHandler httpHandler) throws Exception {
+
+        portNumber = HTTPSettings.getPortNumber();
+
+		if (portNumber < HTTPSettings.PORT_MIN || portNumber > HTTPSettings.PORT_MAX) {
 			throw new Exception("Invalid TCP/IP port, out of range");
-		this.portnumber=port;
-		this.httpHandler=hh;
+        }
+
+		this.httpHandler = httpHandler;
 	}
-	
+
+    /**
+     * Start listening.
+     *
+     * @throws Exception
+     */
 	public void startUp() throws Exception {
-		ServerSocket servsock=new ServerSocket(portnumber);
+
+		ServerSocket serverSocket = new ServerSocket(portNumber);
+
 		System.out.println("Server started");
-		System.out.println("Waiting requests at port " + portnumber);
+		System.out.println("Waiting requests at port " + portNumber);
 		
-		while (true) {
-			Socket s=servsock.accept();
-			httpHandler.handleRequest(s.getInputStream(), s.getOutputStream());
-			s.close();
+		while (listen) {
+			Socket socket = serverSocket.accept();
+
+			httpHandler.handleRequest(socket.getInputStream(), socket.getOutputStream());
+
+            socket.close();
 		}		
 	}
+
+    /**
+     * Interrupts the listener.
+     */
+    public void interrupt() {
+
+        listen = false;
+    }
 }
