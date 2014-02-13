@@ -7,8 +7,8 @@ import java.util.HashMap;
 
 public final class HTTPSettings {
 
-	static final String DEFAULT_DOC_ROOT = new File("www").getAbsolutePath();
-    static final String FILE_NOT_FOUND   = "404.html";
+	static final String DEFAULT_DOC_ROOT    = new File("www").getAbsolutePath();
+    static final String FILE_NOT_FOUND_FILE = "404.html";
 
     static private String documentRoot = DEFAULT_DOC_ROOT;
 
@@ -20,7 +20,21 @@ public final class HTTPSettings {
 
     static private int portNumber = DEFAULT_PORT_NUM;
 
-	static final HashMap<String, String> dataTypes = new HashMap<String, String>();	
+	static final HashMap<String, String> dataTypes = new HashMap<String, String>() {
+        {
+            // Textual
+            put("html", "text/html");
+            put("css" , "text/css");
+            put("txt" , "text/plain");
+
+            // Application
+            put("gif" , "image/gif");
+            put("png" , "image/png");
+            put("jpeg", "image/jpeg");
+            put("jpg" , "image/jpg");
+            put("pdf" , "application/pdf");
+        }
+    };
 
 	static final String[] DAYS   = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
 	static final String[] MONTHS = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};

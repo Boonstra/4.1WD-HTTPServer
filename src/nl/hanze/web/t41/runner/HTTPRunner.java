@@ -9,7 +9,7 @@ public class HTTPRunner {
     /**
      * Main method.
      *
-     * @param args
+     * @param args Command line arguments.
      */
 	public static void main (String args[]) {
 

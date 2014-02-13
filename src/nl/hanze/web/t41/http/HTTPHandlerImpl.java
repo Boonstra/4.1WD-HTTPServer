@@ -23,22 +23,25 @@ public class HTTPHandlerImpl implements HTTPHandler {
 		 TODO Implement
 		*/
 		
-		HTTPRequest request = new HTTPRequest(in);
-		HTTPResponse respons = new HTTPResponse(out);
-		
-		request.setUri();						
-		respons.setRequest(request);
+		HTTPRequest httpRequest   = new HTTPRequest(in);
+		HTTPResponse httpResponse = new HTTPResponse(out);
+
+        httpRequest.setUri();
+        httpResponse.setRequest(httpRequest);
 		
 		showDateAndTime();
-		System.out.println(": " + request.getUri());
+		System.out.println(": " + httpRequest.getUri());
 		
 		try {
-			respons.sendResponse();			
+            httpResponse.sendResponse();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
+
+    /**
+     * Outputs the date and time.
+     */
 	private void showDateAndTime () {
 
 		DateFormat format = new SimpleDateFormat("dd-mm-yyyy HH:mm:ss");
