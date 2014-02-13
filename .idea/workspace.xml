@@ -108,7 +108,7 @@
       <file leaf-file-name="HTTPResponse.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/nl/hanze/web/t41/http/HTTPResponse.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="69" column="60" selection-start="1945" selection-end="1945" vertical-scroll-proportion="0.6541916" vertical-offset="685" max-vertical-offset="3706">
+            <state line="144" column="27" selection-start="4396" selection-end="4396" vertical-scroll-proportion="0.5778443" vertical-offset="2011" max-vertical-offset="3706">
               <folding />
             </state>
           </provider>
@@ -553,12 +553,12 @@
       <created>1392280222943</created>
       <updated>1392280222943</updated>
       <workItem from="1392308847623" duration="1034000" />
-      <workItem from="1392309899149" duration="4097000" />
+      <workItem from="1392309899149" duration="4128000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="5131000" />
+    <option name="totallyTimeSpent" value="5162000" />
   </component>
   <component name="TodoView" selected-index="0">
     <todo-panel id="selected-file">
@@ -805,7 +805,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/nl/hanze/web/t41/http/HTTPResponse.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="69" column="60" selection-start="1945" selection-end="1945" vertical-scroll-proportion="0.6541916" vertical-offset="685" max-vertical-offset="3706">
+        <state line="144" column="27" selection-start="4396" selection-end="4396" vertical-scroll-proportion="0.5778443" vertical-offset="2011" max-vertical-offset="3706">
           <folding />
         </state>
       </provider>

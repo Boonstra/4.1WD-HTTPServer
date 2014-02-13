@@ -142,7 +142,7 @@ public class HTTPResponse {
         // Build header
 		String header = "";
 
-        header += "HTTP/1.0 " + responseCode.code + " " + responseCode.description + "\r\n";
+        header += "HTTP/1.1 " + responseCode.code + " " + responseCode.description + "\r\n";
         header += "Connection: keep-alive\r\n";
         header += "Content-Type: " + getMimeType(fileType) + "; charset=UTF-8\r\n";
         header += "Content-Length: " + file.length() + "\r\n";
