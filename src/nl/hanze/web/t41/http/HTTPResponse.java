@@ -53,7 +53,7 @@ public class HTTPResponse {
 		String fileName                 = httpRequest.getUri();
         FileInputStream fileInputStream = null;
 
-		try {
+		try {//String test = null; test.equals("");
             // Get the file by file name and put it into a file input stream
 			File file       = new File(HTTPSettings.getDocumentRoot(), fileName);
             fileInputStream = getFileInputStream(file);
@@ -105,7 +105,7 @@ public class HTTPResponse {
             fileInputStream = new FileInputStream(file);
         } catch (FileNotFoundException passedFileNotFoundException) {
             try {
-                fileInputStream = new FileInputStream(HTTPSettings.getDocumentRoot() + HTTPSettings.FILE_NOT_FOUND_FILE);
+                fileInputStream = new FileInputStream(new File(HTTPSettings.getDocumentRoot(), HTTPSettings.FILE_NOT_FOUND_FILE));
             } catch (FileNotFoundException notFoundFileNotFoundException) {
                 System.out.println("A 404 error occurred while looking for the 404 file. Errorception.");
             }
@@ -142,14 +142,14 @@ public class HTTPResponse {
         // Build header
 		String header = "";
 
-        header += "Status: " + responseCode.code + " " + responseCode.description + "\r\n";
+        header += "HTTP/1.0 " + responseCode.code + " " + responseCode.description + "\r\n";
         header += "Connection: keep-alive\r\n";
         header += "Content-Type: " + getMimeType(fileType) + "; charset=UTF-8\r\n";
         header += "Content-Length: " + file.length() + "\r\n";
         header += "Date: " + HTTPSettings.getDate() + "\r\n";
-        header += "Server: Crappy Java Server 2000\r\n";
+        header += "Server: Crappy Java Server 2000\r\n\r\n";
 
-		return header.getBytes();
+        return header.getBytes();
 	}
 
     /**

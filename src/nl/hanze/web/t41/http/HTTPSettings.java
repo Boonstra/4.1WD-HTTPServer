@@ -51,7 +51,7 @@ public final class HTTPSettings {
      * @param documentRoot The path to where website files can be found.
      */
     public static void setDocumentRoot(String documentRoot) {
-
+        System.out.println("Document root set: " + documentRoot);
         HTTPSettings.documentRoot = documentRoot;
     }
 
@@ -78,12 +78,12 @@ public final class HTTPSettings {
 
 		GregorianCalendar calendar = new GregorianCalendar();
 
-		String rv = "";
+		String date = "";
 
-		rv += DAYS[calendar.get(Calendar.DAY_OF_WEEK) - 1] + ", ";
-		rv += calendar.get(Calendar.DAY_OF_MONTH) + " " + MONTHS[calendar.get(Calendar.MONTH)];
-		rv += " " + calendar.get(Calendar.YEAR) + "\r\n";
+        date += DAYS[calendar.get(Calendar.DAY_OF_WEEK) - 1] + ", ";
+        date += calendar.get(Calendar.DAY_OF_MONTH) + " " + MONTHS[calendar.get(Calendar.MONTH)] + " ";
+        date += calendar.get(Calendar.YEAR);
 		
-		return rv;
+		return date;
 	}
 }
