@@ -31,6 +31,9 @@ public class HTTPListener {
     /**
      * Start listening.
      *
+     * TODO Zorg ervoor dat er voor elke request een nieuw proces wordt aangemaakt (een techniek die bekend staat als
+     * TODO spawning of forking). Je kunt hiervoor bijvoorbeeld ProcesBuilder gebruiken.
+     *
      * @throws Exception
      */
 	public void startUp() throws Exception {

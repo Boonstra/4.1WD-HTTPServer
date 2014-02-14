@@ -4,31 +4,39 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 
 public class HTTPHandlerImpl implements HTTPHandler {
 
-    /**
-     * Handles the request.
-     *
-     * @param in  The request's input stream
-     * @param out The request's output stream
-     */
+    protected static final String[] SUPPORTED_FILE_TYPES = new String[] {
+            // Text
+            "html",
+            "css",
+            "text",
+
+            // Image
+            "gif",
+            "png",
+            "jpeg",
+            "jpg",
+
+            // Application
+            "pdf"
+    };
+
+    @Override
 	public void handleRequest(InputStream in, OutputStream out) {
 
-		/*
-		 ***  OPGAVE 4: 1c ***
-		 stel de juiste bestand-typen in.
-
-		 TODO Implement
-		*/
-		
 		HTTPRequest httpRequest   = new HTTPRequest(in);
 		HTTPResponse httpResponse = new HTTPResponse(out);
 
         httpRequest.setUri();
-        httpResponse.setRequest(httpRequest);
-		
+
+        HTTPResponseFile httpResponseFile = new HTTPResponseFile(httpRequest.getUri(), this);
+
+        httpResponse.setResponseFile(httpResponseFile);
+
 		showDateAndTime();
 		System.out.println(": " + httpRequest.getUri());
 		
@@ -41,6 +49,12 @@ public class HTTPHandlerImpl implements HTTPHandler {
 			e.printStackTrace();
 		}
 	}
+
+    @Override
+    public boolean isFileTypeSupported(String fileType) {
+
+        return Arrays.asList(SUPPORTED_FILE_TYPES).contains(fileType);
+    }
 
     /**
      * Outputs the date and time.

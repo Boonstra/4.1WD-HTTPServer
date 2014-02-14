@@ -7,9 +7,9 @@ import java.util.HashMap;
 
 public final class HTTPSettings {
 
-	static final String DEFAULT_DOC_ROOT           = new File("www").getAbsolutePath();
-    static final String FILE_NOT_FOUND_FILE        = "404.html";
-    static final String INTERNAL_SERVER_ERROR_FILE = "500.html";
+	static final String DEFAULT_DOC_ROOT                  = new File("www").getAbsolutePath();
+    static final public String FILE_NOT_FOUND_FILE        = "404.html";
+    static final public String INTERNAL_SERVER_ERROR_FILE = "500.html";
 
     static private String documentRoot = DEFAULT_DOC_ROOT;
 
@@ -21,23 +21,25 @@ public final class HTTPSettings {
 
     static private int portNumber = DEFAULT_PORT_NUM;
 
-	static final HashMap<String, String> dataTypes = new HashMap<String, String>() {
+    static final HashMap<String, String> dataTypes = new HashMap<String, String>() {
         {
-            // Textual
+            // Text
             put("html", "text/html");
             put("css" , "text/css");
             put("txt" , "text/plain");
 
-            // Application
+            // Image
             put("gif" , "image/gif");
             put("png" , "image/png");
             put("jpeg", "image/jpeg");
             put("jpg" , "image/jpg");
+
+            // Application
             put("pdf" , "application/pdf");
         }
     };
 
-	static final String[] DAYS   = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
+    static final String[] DAYS   = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
 	static final String[] MONTHS = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
 
     /**
@@ -70,6 +72,24 @@ public final class HTTPSettings {
     public static void setPortNumber(int portNumber) {
 
         HTTPSettings.portNumber = portNumber;
+    }
+
+    /**
+     * Returns the mime type of the passed file type. Returns "application/octet-stream" when no matching data type was
+     * found.
+     *
+     * @param fileType The type of the file.
+     *
+     * @return mimeType
+     */
+    public static String getMimeType(String fileType) {
+
+        if (dataTypes.containsKey(fileType)) {
+            return dataTypes.get(fileType);
+        }
+
+        // The mime type for unknown file types
+        return "application/octet-stream";
     }
 
     /**
