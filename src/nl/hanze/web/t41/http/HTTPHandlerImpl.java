@@ -32,9 +32,12 @@ public class HTTPHandlerImpl implements HTTPHandler {
 		showDateAndTime();
 		System.out.println(": " + httpRequest.getUri());
 		
-		try {
+		try
+        {
             httpResponse.sendResponse();
-		} catch (Exception e) {
+		}
+        catch (Exception e)
+        {
 			e.printStackTrace();
 		}
 	}

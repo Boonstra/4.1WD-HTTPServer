@@ -14,28 +14,37 @@ public class HTTPRunner {
 	public static void main (String args[]) {
 
         // Get port number from arguments
-        try {
+        try
+        {
             int portNumber = Integer.parseInt(args[0]);
 
             HTTPSettings.setPortNumber(portNumber);
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             System.out.println("Default port number is used: " + HTTPSettings.getPortNumber());
         }
 
         // Get the document root from the arguments
-        try {
+        try
+        {
             String documentRoot = args[1];
 
             HTTPSettings.setDocumentRoot(documentRoot);
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             System.out.println("Default document is used: " + HTTPSettings.getDocumentRoot());
         }
 
         // Start listening
-	    try {
+	    try
+        {
 	    	HTTPListener listener = new HTTPListener(new HTTPHandlerImpl());
 	    	listener.startUp();
-	    } catch (Exception e) {
+	    }
+        catch (Exception e)
+        {
 			e.printStackTrace();
 		}
 	}

@@ -7,8 +7,9 @@ import java.util.HashMap;
 
 public final class HTTPSettings {
 
-	static final String DEFAULT_DOC_ROOT    = new File("www").getAbsolutePath();
-    static final String FILE_NOT_FOUND_FILE = "404.html";
+	static final String DEFAULT_DOC_ROOT           = new File("www").getAbsolutePath();
+    static final String FILE_NOT_FOUND_FILE        = "404.html";
+    static final String INTERNAL_SERVER_ERROR_FILE = "500.html";
 
     static private String documentRoot = DEFAULT_DOC_ROOT;
 

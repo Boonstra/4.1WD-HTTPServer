@@ -58,23 +58,26 @@ public class HTTPRequest {
      */
 	private String parseRequest() {
 
-		StringBuffer request = new StringBuffer(HTTPSettings.BUFFER_SIZE);
+		StringBuilder stringBuilder = new StringBuilder(HTTPSettings.BUFFER_SIZE);
 
 		int i;
 
 		byte[] buffer = new byte[HTTPSettings.BUFFER_SIZE];
 
-		try {
+		try
+        {
 			i = inputStream.read(buffer);
-		} catch (Exception e) {
+		}
+        catch (Exception e)
+        {
 			e.printStackTrace();
 			i = -1;
 		}
 
 		for (int j = 0; j < i; j++) {
-			request.append((char) buffer[j]);
+            stringBuilder.append((char) buffer[j]);
 		}
 
-		return request.toString();
+		return stringBuilder.toString();
 	}
 }
