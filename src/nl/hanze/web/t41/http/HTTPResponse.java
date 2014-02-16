@@ -4,8 +4,6 @@ import java.io.*;
 
 public class HTTPResponse {
 
-	private OutputStream outputStream;
-
     private HTTPResponseFile httpResponseFile;
 
     /**
@@ -26,16 +24,6 @@ public class HTTPResponse {
     }
 
     /**
-     * Constructor
-     *
-     * @param outputStream The response.
-     */
-	public HTTPResponse(OutputStream outputStream) {
-
-		this.outputStream = outputStream;
-	}
-
-    /**
      * @param httpResponseFile The HTTP response file from which to read the data.
      */
 	public void setResponseFile(HTTPResponseFile httpResponseFile) {
@@ -51,6 +39,7 @@ public class HTTPResponse {
 	public void sendResponse() throws IOException {
 
 		byte[] bytes                    = new byte[HTTPSettings.BUFFER_SIZE];
+        String response                 = "";
         FileInputStream fileInputStream = null;
 
 		try
@@ -62,17 +51,23 @@ public class HTTPResponse {
             if (fileInputStream != null) {
 
                 // Write the header
-                outputStream.write(getHTTPHeader(httpResponseFile.fileType, httpResponseFile.responseCode, httpResponseFile.file.length()));
+//                response = getHTTPHeader(httpResponseFile.fileType, httpResponseFile.responseCode, httpResponseFile.file.length());
+                System.out.println(getHTTPHeader(httpResponseFile.fileType, httpResponseFile.responseCode, httpResponseFile.file.length()));
 
-                // Write the content byte by byte
-                int character = fileInputStream.read(bytes, 0, HTTPSettings.BUFFER_SIZE);
-                while (character != -1) {
-                    outputStream.write(bytes, 0, character);
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(fileInputStream));
 
-                    character = fileInputStream.read(bytes, 0, HTTPSettings.BUFFER_SIZE);
+                StringBuilder stringBuilder = new StringBuilder();
+
+                String line;
+
+                while((line = bufferedReader.readLine()) != null) {
+                    stringBuilder.append(line);
+                    stringBuilder.append('\n');
                 }
+
+                response += stringBuilder.toString();
             } else {
-                new PrintStream(outputStream).print("404: 404 File Not Found");
+                response = "404: 404 File Not Found";
             }
         }
         catch (Exception e)
@@ -82,11 +77,11 @@ public class HTTPResponse {
             e.printStackTrace(new PrintWriter(exceptionStringWriter));
 
             // Write the exception header
-            outputStream.write(getHTTPHeader("html", ResponseCode.C500, exceptionStringWriter.getBuffer().length()));
+            response = getHTTPHeader("html", ResponseCode.C500, exceptionStringWriter.getBuffer().length());
 
             // Write the exception stack trace
-            new PrintStream(outputStream).print(exceptionStringWriter.toString());
-		}
+            response += exceptionStringWriter.toString();
+        }
         finally
         {
 			if (fileInputStream != null) {
@@ -96,11 +91,13 @@ public class HTTPResponse {
                 }
                 catch (IOException ioException)
                 {
-                    System.out.println("An error occurred while trying to close the file input stream");
+                    response = "An error occurred while trying to close the file input stream";
                 }
             }
 		}
-	}
+
+        System.out.print(response);
+    }
 
     /**
      * @param file The file to create a file input stream of.
@@ -129,7 +126,7 @@ public class HTTPResponse {
      *
      * @return byte[]
      */
-	private byte[] getHTTPHeader(String fileType, ResponseCode responseCode, long contentLength) {
+	private String getHTTPHeader(String fileType, ResponseCode responseCode, long contentLength) {
 
         // Build header
 		String header = "";
@@ -137,11 +134,11 @@ public class HTTPResponse {
         header += "HTTP/1.1 " + responseCode.code + " " + responseCode.description + "\r\n";
         header += "Connection: keep-alive\r\n";
         header += "Content-Type: " + HTTPSettings.getMimeType(fileType) + "; charset=UTF-8\r\n";
-        header += "Content-Length: " + contentLength + "\r\n";
+        header += "Content-Length: " + (contentLength + 2L) + "\r\n";
         header += "Date: " + HTTPSettings.getDate() + "\r\n";
         header += "Server: Crappy Java Server 2000\r\n\r\n";
-        System.out.println(fileType + " - " + HTTPSettings.getMimeType(fileType));
-        return header.getBytes();
+
+        return header;
 	}
 
     /**

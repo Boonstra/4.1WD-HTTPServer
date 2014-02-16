@@ -1,6 +1,5 @@
 package nl.hanze.web.t41.runner;
 
-import nl.hanze.web.t41.http.HTTPHandlerImpl;
 import nl.hanze.web.t41.http.HTTPListener;
 import nl.hanze.web.t41.http.HTTPSettings;
 
@@ -40,9 +39,9 @@ public class HTTPRunner {
         // Start listening
 	    try
         {
-	    	HTTPListener listener = new HTTPListener(new HTTPHandlerImpl());
+	    	HTTPListener listener = new HTTPListener();
 
-	    	listener.startUp();
+            new Thread(listener).start();
 	    }
         catch (Exception e)
         {
