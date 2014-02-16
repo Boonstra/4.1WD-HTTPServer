@@ -26,10 +26,10 @@ public class HTTPHandlerImpl implements HTTPHandler {
     };
 
     @Override
-	public void handleRequest(InputStream in, OutputStream out) {
+	public void handleRequest(InputStream inputStream, OutputStream outputStream) {
 
-		HTTPRequest httpRequest   = new HTTPRequest(in);
-		HTTPResponse httpResponse = new HTTPResponse(out);
+		HTTPRequest httpRequest   = new HTTPRequest(inputStream);
+		HTTPResponse httpResponse = new HTTPResponse(outputStream);
 
         httpRequest.setUri();
 

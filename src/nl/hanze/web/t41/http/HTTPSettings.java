@@ -7,21 +7,25 @@ import java.util.HashMap;
 
 public final class HTTPSettings {
 
-	static final String DEFAULT_DOC_ROOT                  = new File("www").getAbsolutePath();
-    static final public String FILE_NOT_FOUND_FILE        = "404.html";
-    static final public String INTERNAL_SERVER_ERROR_FILE = "500.html";
+	protected static final String DEFAULT_DOC_ROOT        = new File("www").getAbsolutePath();
+    protected static final String FILE_NOT_FOUND_FILE        = "404.html";
+    protected static final String INTERNAL_SERVER_ERROR_FILE = "500.html";
 
-    static private String documentRoot = DEFAULT_DOC_ROOT;
+    private static String documentRoot = DEFAULT_DOC_ROOT;
 
-	static final int BUFFER_SIZE = 2048;
+//    protected static final String CLASSPATH = "./out/production/forking";
+//    protected static final String CLASSPATH = "./out/production/httpserver/nl/hanze/web/t41/runner";
+    protected static final String CLASSPATH = "./out/production/httpserver/nl/hanze/web/t41/http";
 
-	static final int PORT_MIN         = 0;
-	static final int PORT_MAX         = 65535;
-	static final int DEFAULT_PORT_NUM = 4444;
+	protected static final int BUFFER_SIZE = 2048;
 
-    static private int portNumber = DEFAULT_PORT_NUM;
+	protected static final int PORT_MIN         = 0;
+	protected static final int PORT_MAX         = 65535;
+	protected static final int DEFAULT_PORT_NUM = 4444;
 
-    static final HashMap<String, String> dataTypes = new HashMap<String, String>() {
+    private static int portNumber = DEFAULT_PORT_NUM;
+
+    protected static final HashMap<String, String> dataTypes = new HashMap<String, String>() {
         {
             // Text
             put("html", "text/html");
@@ -39,8 +43,8 @@ public final class HTTPSettings {
         }
     };
 
-    static final String[] DAYS   = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
-	static final String[] MONTHS = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
+    protected static final String[] DAYS   = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
+	protected static final String[] MONTHS = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
 
     /**
      * @return documentRoot
@@ -54,7 +58,9 @@ public final class HTTPSettings {
      * @param documentRoot The path to where website files can be found.
      */
     public static void setDocumentRoot(String documentRoot) {
+
         System.out.println("Document root set: " + documentRoot);
+
         HTTPSettings.documentRoot = documentRoot;
     }
 
