@@ -7,15 +7,13 @@ import java.util.HashMap;
 
 public final class HTTPSettings {
 
-	protected static final String DEFAULT_DOC_ROOT        = new File("www").getAbsolutePath();
+	protected static final String DEFAULT_DOC_ROOT           = new File("www").getAbsolutePath();
     protected static final String FILE_NOT_FOUND_FILE        = "404.html";
     protected static final String INTERNAL_SERVER_ERROR_FILE = "500.html";
 
     private static String documentRoot = DEFAULT_DOC_ROOT;
 
-//    protected static final String CLASSPATH = "./out/production/forking";
-//    protected static final String CLASSPATH = "./out/production/httpserver/nl/hanze/web/t41/runner";
-    protected static final String CLASSPATH = "./out/production/httpserver/nl/hanze/web/t41/http";
+    protected static final String CLASSPATH = "./out/production/httpserver";
 
 	protected static final int BUFFER_SIZE = 2048;
 

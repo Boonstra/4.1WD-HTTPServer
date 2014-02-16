@@ -2,6 +2,7 @@ package nl.hanze.web.t41.helper;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 
 public class JavaProcessBuilder {
@@ -65,8 +66,10 @@ public class JavaProcessBuilder {
         }
 
         ProcessBuilder processBuilder = new ProcessBuilder(argumentsList.toArray(new String[argumentsList.size()]));
+
         processBuilder.redirectErrorStream(true);
         processBuilder.directory(new File(this.workingDirectory));
+
         return processBuilder.start();
     }
 
