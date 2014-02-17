@@ -184,8 +184,7 @@ public class HTTPListener implements Runnable {
                             socket.close();
                         }
                         // When the process is still running, this exception will be thrown and nothing should be done.
-                        catch (IllegalThreadStateException ignored) {
-                            System.out.println("Process is still running"); }
+                        catch (IllegalThreadStateException ignored) { }
                         catch (IOException e)
                         {
                             e.printStackTrace();

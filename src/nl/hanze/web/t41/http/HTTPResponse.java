@@ -51,8 +51,7 @@ public class HTTPResponse {
             if (fileInputStream != null) {
 
                 // Write the header
-//                response = getHTTPHeader(httpResponseFile.fileType, httpResponseFile.responseCode, httpResponseFile.file.length());
-                System.out.println(getHTTPHeader(httpResponseFile.fileType, httpResponseFile.responseCode, httpResponseFile.file.length()));
+                response = getHTTPHeader(httpResponseFile.fileType, httpResponseFile.responseCode, httpResponseFile.file.length());
 
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(fileInputStream));
 
