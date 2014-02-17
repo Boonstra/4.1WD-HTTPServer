@@ -13,7 +13,7 @@ public final class HTTPSettings {
 
     private static String documentRoot = DEFAULT_DOC_ROOT;
 
-    protected static final String CLASSPATH = "./out/production/httpserver";
+    protected static final String CLASSPATH = "./out/production/4.1WD-HTTPServer";
 
 	protected static final int BUFFER_SIZE = 2048;
 

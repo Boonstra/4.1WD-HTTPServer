@@ -179,15 +179,6 @@ public class HTTPListener implements Runnable {
                             // Throws an exception when the process has not yet exited
                             process.exitValue();
 
-                            try
-                            {
-                                Thread.sleep(500);
-                            }
-                            catch (InterruptedException e)
-                            {
-                                e.printStackTrace();
-                            }
-
                             // Clean up
                             iterator.remove();
                             socket.close();
@@ -199,11 +190,6 @@ public class HTTPListener implements Runnable {
                         {
                             e.printStackTrace();
                         }
-                    }
-                    try {
-                        Thread.sleep(500);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
                     }
                 }
 
