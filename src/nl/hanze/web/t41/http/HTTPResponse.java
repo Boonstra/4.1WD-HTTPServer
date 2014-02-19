@@ -1,6 +1,10 @@
 package nl.hanze.web.t41.http;
 
+import nl.hanze.web.t41.helper.Base64Converter;
+
 import java.io.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class HTTPResponse {
 
@@ -49,22 +53,44 @@ public class HTTPResponse {
 
             // The file input stream may be null if both the requested file and the 404 file weren't found
             if (fileInputStream != null) {
-
-                // Write the header
-                response = getHTTPHeader(httpResponseFile.fileType, httpResponseFile.responseCode, httpResponseFile.file.length());
-
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(fileInputStream));
 
                 StringBuilder stringBuilder = new StringBuilder();
 
                 String line;
 
+                // Read file into line
                 while((line = bufferedReader.readLine()) != null) {
                     stringBuilder.append(line);
                     stringBuilder.append('\n');
                 }
 
-                response += stringBuilder.toString();
+                String builtString = stringBuilder.toString();
+
+                if (httpResponseFile.fileType.equals("html")) {
+                    // Look for image sources
+                    Matcher matcher = Pattern.compile("(?<=img src=\")(?:.*)(?=\")").matcher(builtString);
+
+                    StringBuffer stringBuffer = new StringBuffer();
+
+                    // Convert image sources to base64 blobs
+                    while(matcher.find()) {
+                        Base64Converter base64Converter = new Base64Converter(matcher.group());
+
+                        if (base64Converter.fileExists()) {
+                            matcher.appendReplacement(stringBuffer, "data:image/jpg;base64," + base64Converter.encodeToBase64());
+                        }
+                    }
+
+                    matcher.appendTail(stringBuffer);
+
+                    builtString = stringBuffer.toString();
+                }
+
+                // Write the header
+                response = getHTTPHeader(httpResponseFile.fileType, httpResponseFile.responseCode, builtString.length());
+
+                response += builtString;
             } else {
                 response = "404: 404 File Not Found";
             }

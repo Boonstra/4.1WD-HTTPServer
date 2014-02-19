@@ -3,6 +3,9 @@ package nl.hanze.web.t41.runner;
 import nl.hanze.web.t41.http.HTTPListener;
 import nl.hanze.web.t41.http.HTTPSettings;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class HTTPRunner {
 
     /**
@@ -42,7 +45,7 @@ public class HTTPRunner {
 	    	HTTPListener listener = new HTTPListener();
 
             new Thread(listener).start();
-	    }
+        }
         catch (Exception e)
         {
 			e.printStackTrace();
